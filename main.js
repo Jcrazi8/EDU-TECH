@@ -1,4 +1,4 @@
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "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";
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile"; // Free model on Groq
 
@@ -91,7 +91,7 @@ async function sendMessage() {
   const loadingDiv = addMsg("Thinking...", "bot loading");
 
   if (GROQ_API_KEY === "YOUR_GROQ_API_KEY_HERE") {
-    loadingDiv.textContent = "console.groq.com";
+    loadingDiv.textContent = "⚠️ Add your free Groq API key in main.js. Get yours free (no credit card) at console.groq.com";
     loadingDiv.classList.remove("loading");
     return;
   }

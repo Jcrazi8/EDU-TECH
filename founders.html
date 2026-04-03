@@ -5,170 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Our Founders – EduTech</title>
   <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="founder.css" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    /* ===== FOUNDERS PAGE SPECIFIC STYLES ===== */
-    .founders-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      padding: 3rem 0 5rem;
-    }
-
-    .founder-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .founder-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(0, 229, 255, 0.35);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Photo area */
-    .founder-photo {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-      background: linear-gradient(135deg, #1a1f2e, #0d1421);
-    }
-
-    /* Placeholder shown when no real photo is used */
-    .founder-photo-placeholder {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(108,99,255,0.15), rgba(0,229,255,0.08));
-      border-bottom: 1px solid var(--border);
-      gap: 0.75rem;
-      color: var(--muted);
-    }
-
-    .founder-photo-placeholder i {
-      font-size: 3.5rem;
-      color: rgba(0, 229, 255, 0.3);
-    }
-
-    .founder-photo-placeholder span {
-      font-size: 0.78rem;
-      font-family: var(--font-mono);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .founder-info {
-      padding: 1.5rem;
-    }
-
-    .founder-role {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-
-    .founder-name {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.5px;
-    }
-
-    .founder-bio {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 1.2rem;
-    }
-
-    .founder-socials {
-      display: flex;
-      gap: 0.6rem;
-    }
-
-    .founder-socials a {
-      width: 34px;
-      height: 34px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.85rem;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-    }
-
-    .founder-socials a:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: rgba(0,229,255,0.05);
-    }
-
-    /* Lead founder card (slightly larger / featured) */
-    .founder-card.lead {
-      border-color: rgba(108,99,255,0.4);
-      background: rgba(108,99,255,0.05);
-    }
-
-    .founder-card.lead .founder-role {
-      color: var(--accent2);
-    }
-
-    .lead-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(108,99,255,0.15);
-      border: 1px solid rgba(108,99,255,0.4);
-      color: #a89dff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.25rem 0.7rem;
-      border-radius: 50px;
-      margin-bottom: 0.6rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.5px;
-    }
-
-    /* Mission quote banner */
-    .founders-quote {
-      background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(0,229,255,0.07));
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 3rem 2.5rem;
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .founders-quote blockquote {
-      font-family: var(--font-display);
-      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-
-    .founders-quote cite {
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-style: normal;
-    }
-  </style>
 </head>
 <body>
 
@@ -201,7 +40,7 @@
 <section class="page-hero">
   <div class="section-label">The Team</div>
   <h1>Meet the <span style="color:var(--accent)">founders</span></h1>
-  <p>Four students who believed technology support should be accessible to everyone — and built the platform to prove it.</p>
+  <p>Four students who believed technology support should be accessible to everyone — and thought of a company in order to make it happen.</p>
 </section>
 
 <section>
@@ -221,12 +60,6 @@
 
       <!-- ========== FOUNDER 1 — LEAD (YOU) ========== -->
       <div class="founder-card lead">
-        <!-- 
-          TO ADD YOUR PHOTO:
-          1. Save your photo as "founder1.jpg" in the same folder as this file
-          2. Delete the entire <div class="founder-photo-placeholder"> block below
-          3. Uncomment the <img> tag below it
-        -->
         <div class="founder-photo-placeholder">
           <i class="fas fa-user"></i>
           <span>Add Photo</span>
@@ -235,13 +68,15 @@
 
         <div class="founder-info">
           <div class="lead-badge"><i class="fas fa-star"></i> Lead Founder</div>
-          <div class="founder-role">[ YOUR ROLE HERE ]</div>
+          <div class="founder-role">Programmer</div>
           <!-- Example roles: CEO & Co-Founder / Lead Developer / Project Lead -->
-          <div class="founder-name">[ YOUR NAME HERE ]</div>
-          <p class="founder-bio">[ Write 2–3 sentences about yourself here. What did you contribute to EduTech? What are you passionate about? What's your vision for the company? ]</p>
+          <div class="founder-name">Joshua Ramlagan</div>
+          <p class="founder-bio">I am a computer science student studying software development i am the programmer of this website. 
+            The idea to create this platofrom stemmed from seeing how much my grandparents struggle with technology. 
+            I know im not always going ot be there for them so i decided to make a tool for them and for everyone else who is struggling to use.</p>
           <div class="founder-socials">
-            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/joshua-ramlagan/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/Jcrazi8" title="GitHub"><i class="fab fa-github"></i></a>
             <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
@@ -256,8 +91,8 @@
         <!-- <img src="founder2.jpg" alt="Founder Name" class="founder-photo"/> -->
 
         <div class="founder-info">
-          <div class="founder-role">[ ROLE HERE ]</div>
-          <div class="founder-name">[ NAME HERE ]</div>
+          <div class="founder-role">Team Leader</div>
+          <div class="founder-name">Elizabeth Reyes</div>
           <p class="founder-bio">[ Write 2–3 sentences about this team member. What did they work on? What's their background or interest in tech? ]</p>
           <div class="founder-socials">
             <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -276,8 +111,8 @@
         <!-- <img src="founder3.jpg" alt="Founder Name" class="founder-photo"/> -->
 
         <div class="founder-info">
-          <div class="founder-role">[ ROLE HERE ]</div>
-          <div class="founder-name">[ NAME HERE ]</div>
+          <div class="founder-role">IT Technician</div>
+          <div class="founder-name">Moaz Ghounam</div>
           <p class="founder-bio">[ Write 2–3 sentences about this team member. What did they work on? What's their background or interest in tech? ]</p>
           <div class="founder-socials">
             <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -297,7 +132,7 @@
 
         <div class="founder-info">
           <div class="founder-role">[ ROLE HERE ]</div>
-          <div class="founder-name">[ NAME HERE ]</div>
+          <div class="founder-name">Jaylin Sepulveda</div>
           <p class="founder-bio">[ Write 2–3 sentences about this team member. What did they work on? What's their background or interest in tech? ]</p>
           <div class="founder-socials">
             <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>

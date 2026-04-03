@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services – EduTech</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Edu<span>Tech</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="certify.html">Certify</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="founders.html">Founders</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="#subscription" class="btn-nav">Get Started</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <ul class="mobile-menu" id="mobileMenu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="certify.html">Certify</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="founders.html">Founders</a></li>
+      <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="section-label">What We Offer</div>
+  <h1>Services built for<br/><span style="color:var(--accent)">real people</span></h1>
+  <p>From free remote support to hardware repair, PC recommendations, and AI assistance — we've got your tech covered.</p>
+</section>
+
+<section style="padding: 0 0 5rem;">
+  <div class="container">
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-headset"></i></div>
+        <h3>Free Remote Support</h3>
+        <p>Connect instantly with a certified IT professional via screen share or remote access. No appointment needed, no charge for the session.</p>
+        <span class="service-tag">Free</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-tools"></i></div>
+        <h3>Hardware Repair</h3>
+        <p>Ship your device to our certified repair team. You cover shipping and the repair fee — we fix it fast and ship it back fully tested.</p>
+        <span class="service-tag">Pay per service</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-microchip"></i></div>
+        <h3>PC Build Recommender</h3>
+        <p>Tell us your budget and use case. Our AI generates a personalized component list — gaming, work, school, or creative builds.</p>
+        <span class="service-tag">Free / Subscriber</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-robot"></i></div>
+        <h3>AI Tech Assistant</h3>
+        <p>Available 24/7, our Gemini-powered AI answers questions, helps troubleshoot issues, and guides you through tech problems instantly.</p>
+        <span class="service-tag">Always Free</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-user-clock"></i></div>
+        <h3>Priority Queue (Subscribers)</h3>
+        <p>Subscriber members skip the line and get matched with a technician in minutes, not hours. Your time is valuable.</p>
+        <span class="service-tag">Subscribers</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-heart"></i></div>
+        <h3>Senior Care Support</h3>
+        <p>Specialized support for elderly residents in care centers. Patient, clear communication with trained technicians who understand accessibility needs.</p>
+        <span class="service-tag">Institutional</span>
+      </div>
+    </div>
+
+    <!-- PC RECOMMENDER TOOL -->
+    <div id="subscription" style="margin-top: 3rem;">
+      <div class="section-label">Try It Now</div>
+      <h2 class="section-title">PC Build Recommender</h2>
+      <div class="contact-form" style="max-width:600px;">
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">Enter your details and our AI will generate a personalized PC component list for you.</p>
+        <form id="pcRecommenderForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Budget (USD)</label>
+              <input type="number" id="budget" placeholder="e.g. 800" min="200" max="10000" required/>
+            </div>
+            <div class="form-group">
+              <label>Experience Level</label>
+              <select id="level">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="expert">Expert</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Primary Use Case</label>
+            <select id="usecase">
+              <option value="gaming">Gaming</option>
+              <option value="work and productivity">Work & Productivity</option>
+              <option value="video editing and creative work">Video Editing / Creative</option>
+              <option value="school and general use">School & General Use</option>
+              <option value="programming and development">Programming / Development</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">Generate My Build →</button>
+        </form>
+        <div id="recommenderResult" style="display:none;margin-top:1.5rem;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:1.2rem;white-space:pre-wrap;font-size:0.88rem;line-height:1.7;color:var(--text);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT -->
+<div id="chat-toggle" title="Chat with AI Assistant"><i class="fas fa-robot"></i></div>
+<div id="chat-window" class="hidden">
+  <div class="chat-header">
+    <div class="chat-title"><i class="fas fa-robot"></i> EduTech AI Assistant</div>
+    <button id="chat-close"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="chat-messages">
+    <div class="msg bot">Hi! I'm your EduTech AI assistant. Ask me anything about tech support, our services, or IT advice! 👋</div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask a tech question..."/>
+    <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+  </div>
+  <div class="chat-footer">Powered by Groq · Llama 3.3 · Free AI</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">Edu<span>Tech</span></a>
+      <p>Accessible, affordable technology support. Worldwide.</p>
+    </div>
+    <div class="footer-links"><h5>Platform</h5><a href="services.html">Services</a><a href="certify.html">Certification</a></div>
+    <div class="footer-links"><h5>Company</h5><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    <div class="footer-links"><h5>Legal</h5><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 EduTech. Built to bridge the digital divide.</p></div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

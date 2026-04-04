@@ -11,11 +11,11 @@
 
 const DEFAULT_USERS = [
   {
-    username:    "user1",
-    password:    "EduUser2026!",
+    username:    "hsct1",
+    password:    "edutech2026",
     role:        "user",
-    displayName: "Alex Johnson",
-    email:       "alex@example.com",
+    displayName: "Highschool",
+    email:       "hsct@example.com",
     plan:        "Basic (Free)",
     joined:      "March 2026"
   }
@@ -23,10 +23,10 @@ const DEFAULT_USERS = [
 
 const DEFAULT_ADMINS = [
   {
-    username:    "admin",
-    password:    "EduAdmin2026!",
+    username:    "Admin",
+    password:    "E022808j",
     role:        "admin",
-    displayName: "Admin - EduTech",
+    displayName: "EJ Admin",
     email:       "admin@edutech.io"
   }
 ];

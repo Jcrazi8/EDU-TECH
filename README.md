@@ -15,15 +15,6 @@ EduTech is a static front-end school project with a Netlify Function that keeps 
 | `.env.example` | Safe template for local secrets |
 | `CREDENTIALS.txt` | Public demo login info only |
 
-## Local Setup
-
-1. Install the Netlify CLI if you do not already have it.
-   Example: `npm install -g netlify-cli`
-2. Copy `.env.example` to `.env`.
-3. Open `.env` and replace `replace-with-new-groq-api-key` with your new Groq key.
-4. Start the project with `netlify dev` from this folder.
-5. Open the local URL shown by Netlify.
-
 Important: opening `index.html` directly is no longer the supported preview for AI features, because the chat and PC recommender now call the Netlify Function.
 
 The login system in this project is a classroom demo only.

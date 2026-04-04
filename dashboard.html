@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Dashboard – EduTech</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body { padding-top: 70px; }
+    .dash-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .dash-welcome { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; }
+    .dash-welcome span { color: var(--accent); }
+    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .dash-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.8rem;
+    }
+    .dash-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+    .plan-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.3);
+      color: var(--accent); font-size: 0.85rem; font-weight: 700;
+      padding: 0.5rem 1rem; border-radius: 50px; margin-bottom: 1rem;
+    }
+    .plan-features li { font-size: 0.85rem; color: var(--muted); padding: 0.35rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .plan-features li i.fa-check { color: var(--accent); }
+    .plan-features li i.fa-times { color: rgba(255,255,255,0.2); }
+
+    /* Support request form inside dashboard */
+    .support-form-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .support-form-card h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .support-form-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .form-success-dash {
+      display: none; background: rgba(0,229,255,0.08); border: 1px solid var(--accent);
+      color: var(--accent); border-radius: 10px; padding: 1rem; font-weight: 600;
+      font-size: 0.9rem; text-align: center; margin-top: 1rem;
+    }
+    .field-error { display: block; color: #ff6b6b; font-size: 0.78rem; margin-top: 4px; }
+    .input-error { border-color: rgba(255,107,107,0.6) !important; }
+
+    /* Subscription upgrade card */
+    .upgrade-card {
+      background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(0,229,255,0.06));
+      border: 1px solid rgba(108,99,255,0.35);
+      border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .upgrade-card h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .upgrade-card p  { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .sub-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .sub-plan {
+      border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem;
+      cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.03);
+    }
+    .sub-plan:hover { border-color: rgba(108,99,255,0.4); }
+    .sub-plan.selected { border-color: var(--accent2); background: rgba(108,99,255,0.08); }
+    .sub-plan h4 { font-family: var(--font-display); font-weight: 700; margin-bottom: 0.3rem; }
+    .sub-plan .price { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+    .sub-plan p { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+    .sub-success {
+      display: none; background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.4);
+      color: #a89dff; border-radius: 10px; padding: 1rem; font-weight: 600;
+      text-align: center; margin-top: 1rem;
+    }
+
+    @media(max-width:600px) { .dash-welcome { font-size: 1.4rem; } }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Edu<span>Tech</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="dashboard.html" class="active">My Dashboard</a></li>
+    </ul>
+    <button class="btn-nav" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <ul class="mobile-menu" id="mobileMenu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="dashboard.html">My Dashboard</a></li>
+    <li><a href="#" onclick="logout()">Logout</a></li>
+  </ul>
+</nav>
+
+<div class="dash-wrap">
+
+  <div class="dash-header">
+    <div>
+      <div class="dash-welcome">Hello, <span id="dashName">User</span> 👋</div>
+      <div style="color:var(--muted);font-size:0.88rem;margin-top:4px;">Your EduTech member dashboard</div>
+    </div>
+    <button class="btn-nav" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+  </div>
+
+  <!-- Info cards row -->
+  <div class="dash-grid">
+    <div class="dash-card">
+      <h3>Your Plan</h3>
+      <div class="plan-badge"><i class="fas fa-check-circle"></i> <span id="dashPlan">Basic (Free)</span></div>
+      <ul class="plan-features">
+        <li><i class="fas fa-check"></i> Remote support sessions</li>
+        <li><i class="fas fa-check"></i> AI chat assistant</li>
+        <li><i class="fas fa-check"></i> Hardware repair (pay per service)</li>
+        <li><i class="fas fa-times"></i> Priority queue</li>
+        <li><i class="fas fa-times"></i> 25% off repair fees</li>
+      </ul>
+    </div>
+    <div class="dash-card">
+      <h3>Account Info</h3>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;margin-top:0.5rem;">
+        <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Display Name</div><div style="font-weight:600;" id="infoName">—</div></div>
+        <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Username</div><div style="font-family:var(--font-mono);font-size:0.85rem;color:var(--accent);" id="infoUser">—</div></div>
+        <div><div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Member Since</div><div style="font-size:0.88rem;" id="infoJoined">—</div></div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <h3>Quick Links</h3>
+      <div style="display:flex;flex-direction:column;gap:0.7rem;margin-top:0.5rem;">
+        <a href="services.html" style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text);padding:0.6rem;border-radius:8px;border:1px solid var(--border);"><i class="fas fa-headset" style="color:var(--accent);width:18px;"></i> View All Services</a>
+        <a href="certify.html" style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text);padding:0.6rem;border-radius:8px;border:1px solid var(--border);"><i class="fas fa-certificate" style="color:var(--accent);width:18px;"></i> Certification Program</a>
+        <a href="contact.html" style="display:flex;align-items:center;gap:10px;font-size:0.88rem;color:var(--text);padding:0.6rem;border-radius:8px;border:1px solid var(--border);"><i class="fas fa-envelope" style="color:var(--accent);width:18px;"></i> Contact Support</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPORT REQUEST FORM -->
+  <div class="support-form-card">
+    <h2><i class="fas fa-headset" style="color:var(--accent);margin-right:8px;"></i>Request Tech Support</h2>
+    <p>Describe your issue and a certified technician will assist you. This request is sent to the admin dashboard instantly.</p>
+    <form id="supportForm">
+      <div class="form-group">
+        <label>Issue Type</label>
+        <select id="issueType">
+          <option>Software / OS Problem</option>
+          <option>Hardware / Device Issue</option>
+          <option>Network / WiFi Problem</option>
+          <option>Virus / Security Threat</option>
+          <option>Device Setup / Configuration</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Describe Your Issue</label>
+        <textarea id="issueDesc" placeholder="Please describe your tech problem in detail..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Preferred Contact Method</label>
+        <select id="contactMethod">
+          <option>Remote screen share session</option>
+          <option>Email reply</option>
+          <option>Phone callback</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-submit">Submit Support Request</button>
+    </form>
+    <div class="form-success-dash" id="supportSuccess">
+      ✅ Support request submitted! A technician will contact you within 24 hours. Your request is now visible to the admin team.
+    </div>
+  </div>
+
+  <!-- SUBSCRIPTION UPGRADE -->
+  <div class="upgrade-card" id="upgradeSection">
+    <h2><i class="fas fa-rocket" style="color:var(--accent2);margin-right:8px;"></i>Upgrade Your Plan</h2>
+    <p>Get priority support, 25% off repairs, and a dedicated AI assistant. Select a plan below to simulate the subscription process.</p>
+    <div class="sub-plans">
+      <div class="sub-plan" onclick="selectPlan(this, 'Subscriber ($9.99/mo)')">
+        <h4>Subscriber</h4>
+        <div class="price">$9.99<span style="font-size:0.8rem;color:var(--muted)">/mo</span></div>
+        <p>Priority queue, 25% off repairs, dedicated AI</p>
+      </div>
+      <div class="sub-plan" onclick="selectPlan(this, 'Institution (Custom)')">
+        <h4>Institution</h4>
+        <div class="price" style="font-size:1rem;padding-top:4px;">Custom</div>
+        <p>Bulk access, dedicated team, school partnerships</p>
+      </div>
+    </div>
+    <button class="btn-submit" style="max-width:280px;" onclick="submitSubscription()">
+      <i class="fas fa-credit-card"></i> Subscribe Now
+    </button>
+    <div class="sub-success" id="subSuccess">
+      🎉 Subscription request sent! The admin team will activate your plan shortly. Check your email for confirmation.
+    </div>
+  </div>
+
+</div>
+
+<!-- AI CHAT -->
+<div id="chat-toggle" title="Chat with AI Assistant"><i class="fas fa-robot"></i></div>
+<div id="chat-window" class="hidden">
+  <div class="chat-header">
+    <div class="chat-title"><i class="fas fa-robot"></i> EduTech AI Assistant</div>
+    <button id="chat-close"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="chat-messages">
+    <div class="msg bot">Hi! I'm your EduTech AI assistant. How can I help you today? 👋</div>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask a tech question..."/>
+    <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+  </div>
+  <div class="chat-footer">Powered by Groq · Llama 3.3 · Free AI</div>
+</div>
+
+<script src="auth.js"></script>
+<script src="main.js"></script>
+<script>
+  /* ---- AUTH GUARD ---- */
+  const session = requireAuth('user');
+  let currentUser = null;
+
+  if (session) {
+    /* Load full user data from credentials store */
+    const users = getUsers();
+    currentUser = users.find(u => u.username === session.username) || {};
+
+    document.getElementById('dashName').textContent  = session.displayName;
+    document.getElementById('dashPlan').textContent  = currentUser.plan || 'Basic (Free)';
+    document.getElementById('infoName').textContent  = session.displayName;
+    document.getElementById('infoUser').textContent  = session.username;
+    document.getElementById('infoJoined').textContent = currentUser.joined || '—';
+
+    /* Hide upgrade card if already on a paid plan */
+    if (currentUser.plan && currentUser.plan !== 'Basic (Free)') {
+      document.getElementById('upgradeSection').style.display = 'none';
+    }
+  }
+
+  /* ---- SUPPORT REQUEST FORM ---- */
+  document.getElementById('supportForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    /* Clear errors */
+    document.querySelectorAll('.field-error').forEach(el => el.remove());
+    document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+
+    const desc = document.getElementById('issueDesc').value.trim();
+    let valid = true;
+
+    /* Validate description */
+    if (desc.length < 10) {
+      const err = document.createElement('span');
+      err.className   = 'field-error';
+      err.textContent = 'Please describe your issue in at least 10 characters.';
+      document.getElementById('issueDesc').classList.add('input-error');
+      document.getElementById('issueDesc').parentNode.appendChild(err);
+      valid = false;
+    }
+    if (!valid) return;
+
+    const issueType     = document.getElementById('issueType').value;
+    const contactMethod = document.getElementById('contactMethod').value;
+
+    /* Log to admin activity feed */
+    logActivity('support_request', {
+      name:    session ? session.displayName : 'Guest',
+      user:    session ? session.username : 'guest',
+      details: `[${issueType}] ${desc.substring(0, 80)}${desc.length > 80 ? '...' : ''} | Contact via: ${contactMethod}`
+    });
+
+    const btn = this.querySelector('.btn-submit');
+    btn.textContent = 'Submitting...';
+    btn.disabled    = true;
+
+    setTimeout(() => {
+      btn.textContent = 'Submit Support Request';
+      btn.disabled    = false;
+      this.reset();
+      document.getElementById('supportSuccess').style.display = 'block';
+      setTimeout(() => document.getElementById('supportSuccess').style.display = 'none', 6000);
+    }, 1000);
+  });
+
+  /* ---- SUBSCRIPTION ---- */
+  let selectedPlan = '';
+
+  function selectPlan(el, plan) {
+    document.querySelectorAll('.sub-plan').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPlan = plan;
+  }
+
+  function submitSubscription() {
+    if (!selectedPlan) { alert('Please select a plan first.'); return; }
+
+    /* Log subscription attempt to admin activity feed */
+    logActivity('subscription_attempt', {
+      name:    session ? session.displayName : 'Guest',
+      user:    session ? session.username : 'guest',
+      details: `Requested upgrade to: ${selectedPlan}`
+    });
+
+    document.getElementById('subSuccess').style.display = 'block';
+    setTimeout(() => document.getElementById('subSuccess').style.display = 'none', 6000);
+  }
+</script>
+</body>
+</html>

@@ -21,7 +21,7 @@
       <li><a href="founders.html">Founders</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
-    <a href="contact.html" class="btn-nav">Get Started</a>
+    <a href="login.html" class="btn-nav">Login</a>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
   <ul class="mobile-menu" id="mobileMenu">
@@ -47,7 +47,7 @@
 
         <div class="contact-item">
           <i class="fas fa-envelope"></i>
-          <div><span>Email</span><strong>hello@edutech.io</strong></div>
+          <div><span>Email</span><strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="563e333a3a39163332232233353e783f39">[email&#160;protected]</a></strong></div>
         </div>
         <div class="contact-item">
           <i class="fas fa-phone"></i>
@@ -59,7 +59,7 @@
         </div>
         <div class="contact-item">
           <i class="fas fa-graduation-cap"></i>
-          <div><span>School Partnerships</span><strong>partners@edutech.io</strong></div>
+          <div><span>School Partnerships</span><strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="34445546405a514647745150414051575c1a5d5b">[email&#160;protected]</a></strong></div>
         </div>
 
         <div style="margin-top:2.5rem;padding:1.5rem;background:rgba(0,229,255,0.07);border:1px solid rgba(0,229,255,0.2);border-radius:12px;">
@@ -147,7 +147,7 @@
   <div class="footer-bottom"><p>© 2026 EduTech. Built to bridge the gap between the known and the unknown.</p></div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const faqs = [
   { q: "Is remote tech support really free?", a: "Yes! Basic remote support sessions are completely free for all users. You only pay for hardware repair services (shipping + labor) or for our premium subscription plan." },
   { q: "How do I ship my device for repair?", a: "After submitting a repair request through the platform, you'll receive a shipping label and instructions. Once repaired, we ship it back fully tested." },
@@ -162,14 +162,4 @@ faqs.forEach(f => {
   div.style.cssText = "background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;";
   div.innerHTML = `
     <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('i').style.transform=this.nextElementSibling.style.display==='block'?'rotate(180deg)':'rotate(0deg)'"
-      style="width:100%;padding:1.2rem 1.5rem;background:none;border:none;color:var(--text);font-size:0.95rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left;font-family:var(--font-display);">
-      ${f.q} <i class="fas fa-chevron-down" style="transition:transform 0.3s;flex-shrink:0;color:var(--accent)"></i>
-    </button>
-    <div style="display:none;padding:0 1.5rem 1.2rem;color:var(--muted);font-size:0.9rem;line-height:1.65;">${f.a}</div>
-  `;
-  faqList.appendChild(div);
-});
-</script>
-<script src="main.js"></script>
-</body>
-</html>
+      style="width:100%;padding:1.2rem 1.5rem;background:none;border:none;color:var(--text);font-size:0.95rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left;font-family:var(--font-display);"

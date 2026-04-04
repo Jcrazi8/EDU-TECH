@@ -464,3 +464,9 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 4
   #chat-window { width: calc(100vw - 2rem); right: 1rem; }
   .form-row { grid-template-columns: 1fr; }
 }
+
+/* ===== FORM VALIDATION STYLES (added for Phase 3) ===== */
+/* Red border shown on invalid fields */
+.input-error { border-color: rgba(255,107,107,0.7) !important; }
+/* Error message text shown below invalid fields */
+.field-error { display:block; color:#ff6b6b; font-size:0.78rem; margin-top:4px; }

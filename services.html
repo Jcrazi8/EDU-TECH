@@ -21,7 +21,7 @@
       <li><a href="founders.html">Founders</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
-    <a href="#subscription" class="btn-nav">Get Started</a>
+    <a href="login.html" class="btn-nav">Login</a>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
   <ul class="mobile-menu" id="mobileMenu">
@@ -118,7 +118,59 @@
       </div>
     </div>
   </div>
-</section>
+
+    <!-- PRICING CALCULATOR -->
+    <div style="margin-top: 3rem;">
+      <div class="section-label">Estimate Your Cost</div>
+      <h2 class="section-title">Repair Pricing Calculator</h2>
+      <div class="contact-form" style="max-width:600px;">
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.5rem;">Select your device and issue to get an instant repair cost estimate. Remote/software support is always free.</p>
+        <form id="pricingCalculator">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Device Type</label>
+              <select id="calcDevice">
+                <option value="laptop">Laptop</option>
+                <option value="desktop">Desktop PC</option>
+                <option value="phone">Smartphone</option>
+                <option value="tablet">Tablet</option>
+                <option value="other">Other Device</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Your Plan</label>
+              <select id="calcPlan">
+                <option value="basic">Basic (Free)</option>
+                <option value="subscriber">Subscriber (25% discount)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Type of Issue</label>
+            <select id="calcIssue">
+              <option value="screen">Screen / Display Damage</option>
+              <option value="battery">Battery Replacement</option>
+              <option value="keyboard">Keyboard / Input Issue</option>
+              <option value="virus">Virus / Malware Removal</option>
+              <option value="data">Data Recovery</option>
+              <option value="board">Motherboard / Logic Board</option>
+              <option value="other">Other Hardware Issue</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">Calculate Estimate →</button>
+        </form>
+        <div id="calcResult" style="display:none;margin-top:1.5rem;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:1.5rem;"></div>
+      </div>
+    </div>
+
+    <!-- SUBSCRIPTION CTA with activity logging -->
+    <div style="margin-top:4rem;text-align:center;padding:3rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);">
+      <h2 style="font-family:var(--font-display);font-size:2rem;font-weight:800;margin-bottom:1rem;">Ready to subscribe?</h2>
+      <p style="color:var(--muted);margin-bottom:2rem;">Get priority support and 25% off all repairs for just $9.99/month.</p>
+      <a href="login.html" class="btn-primary" onclick="if(typeof logActivity==='function'){logActivity('subscription_attempt',{name:'Guest Visitor',user:'anonymous',details:'Clicked Subscribe on Services page'})}">Subscribe Now — $9.99/mo</a>
+    </div>
+
+  </section>
 
 <!-- AI CHAT -->
 <div id="chat-toggle" title="Chat with AI Assistant"><i class="fas fa-robot"></i></div>
@@ -150,6 +202,7 @@
   <div class="footer-bottom"><p>© 2026 EduTech. Built to bridge the gap between the known and the unknown.</p></div>
 </footer>
 
+<script src="auth.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

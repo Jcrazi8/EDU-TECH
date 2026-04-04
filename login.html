@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – EduTech</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ===== LOGIN PAGE STYLES ===== */
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      padding-top: 5rem;
+    }
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 440px;
+    }
+    .login-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+    .login-logo span { color: var(--accent); }
+    .login-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    .login-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 4px;
+    }
+    .login-tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.2s;
+      border: none;
+      background: none;
+    }
+    .login-tab.active {
+      background: var(--accent2);
+      color: #fff;
+    }
+    .login-error {
+      display: none;
+      background: rgba(255,107,107,0.1);
+      border: 1px solid rgba(255,107,107,0.4);
+      color: #ff6b6b;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-size: 0.88rem;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    .field-error {
+      display: block;
+      color: #ff6b6b;
+      font-size: 0.78rem;
+      margin-top: 4px;
+    }
+    .input-error {
+      border-color: rgba(255,107,107,0.6) !important;
+    }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: -0.6rem;
+      margin-bottom: 1.2rem;
+      cursor: pointer;
+    }
+    .login-divider {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin: 1.2rem 0;
+      position: relative;
+    }
+    .login-divider::before, .login-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: var(--border);
+    }
+    .login-divider::before { left: 0; }
+    .login-divider::after  { right: 0; }
+    .back-home {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .back-home a { color: var(--accent); }
+    /* Demo credentials hint */
+    .demo-hint {
+      background: rgba(108,99,255,0.08);
+      border: 1px solid rgba(108,99,255,0.25);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .demo-hint strong { color: var(--accent2); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Edu<span>Tech</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="certify.html">Certify</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="founders.html">Founders</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="login.html" class="btn-nav">Login</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <ul class="mobile-menu" id="mobileMenu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="certify.html">Certify</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="founders.html">Founders</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="login-wrapper">
+  <div class="login-box">
+
+    <div class="login-logo">Edu<span>Tech</span></div>
+    <p class="login-subtitle">Browser-only demo login for this school project</p>
+
+    <!-- Role selector tabs -->
+    <div class="login-tabs">
+      <button class="login-tab active" id="tabUser" onclick="setTab('user')">
+        <i class="fas fa-user"></i> User
+      </button>
+      <button class="login-tab" id="tabAdmin" onclick="setTab('admin')">
+        <i class="fas fa-shield-alt"></i> Admin
+      </button>
+    </div>
+
+    <!-- Demo credential hints -->
+    <div class="demo-hint" id="demoHint">
+      <strong>Demo User:</strong> username: <code>user1</code> &nbsp;|&nbsp; password: <code>EduUser2026!</code><br/>
+      These demo accounts are public and stored only in your browser for classroom use.
+    </div>
+
+    <!-- Error message shown on bad login -->
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i> Incorrect username or password. Please try again.
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" autocomplete="off">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="off"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="off"/>
+      </div>
+      <span class="forgot-link" onclick="showForgot()">Forgot password?</span>
+      <button type="submit" class="btn-submit" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+
+    <div class="login-divider">or</div>
+    <div class="back-home">
+      Don't have an account? <a href="contact.html">Request Access</a>
+    </div>
+    <div class="back-home" style="margin-top:0.5rem;">
+      <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="auth.js"></script>
+<script src="main.js"></script>
+<script>
+  /* ---- TAB SWITCHER ---- */
+  let currentRole = 'user';
+
+  function setTab(role) {
+    currentRole = role;
+    document.getElementById('tabUser').classList.toggle('active', role === 'user');
+    document.getElementById('tabAdmin').classList.toggle('active', role === 'admin');
+    document.getElementById('loginError').style.display = 'none';
+
+    /* Update demo hint based on selected tab */
+    const hint = document.getElementById('demoHint');
+    if (role === 'admin') {
+      hint.innerHTML = '<strong>Demo Admin:</strong> username: <code>admin</code> &nbsp;|&nbsp; password: <code>EduAdmin2026!</code><br/>These demo accounts are public and stored only in your browser for classroom use.';
+    } else {
+      hint.innerHTML = '<strong>Demo User:</strong> username: <code>user1</code> &nbsp;|&nbsp; password: <code>EduUser2026!</code><br/>These demo accounts are public and stored only in your browser for classroom use.';
+    }
+  }
+
+  /* ---- FORM SUBMIT — validate then authenticate ---- */
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    /* Clear previous errors */
+    document.querySelectorAll('.field-error').forEach(el => el.remove());
+    document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+    document.getElementById('loginError').style.display = 'none';
+
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    let valid = true;
+
+    /* Validate username not empty */
+    if (!username) {
+      const err = document.createElement('span');
+      err.className   = 'field-error';
+      err.textContent = 'Please enter your username.';
+      document.getElementById('loginUsername').classList.add('input-error');
+      document.getElementById('loginUsername').parentNode.appendChild(err);
+      valid = false;
+    }
+
+    /* Validate password not empty */
+    if (!password) {
+      const err = document.createElement('span');
+      err.className   = 'field-error';
+      err.textContent = 'Please enter your password.';
+      document.getElementById('loginPassword').classList.add('input-error');
+      document.getElementById('loginPassword').parentNode.appendChild(err);
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    /* Authenticate against the credentials store in auth.js */
+    const result = authenticate(username, password, currentRole);
+
+    if (result.success) {
+      /* Save session info to sessionStorage */
+      sessionStorage.setItem('edutech_user', JSON.stringify({
+        username: result.username,
+        role: result.role,
+        displayName: result.displayName
+      }));
+
+      const btn = document.getElementById('loginBtn');
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+
+      /* Redirect to the correct dashboard */
+      setTimeout(() => {
+        if (result.role === 'admin') {
+          window.location.href = 'admin.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
+      }, 800);
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  });
+
+  /* ---- FORGOT PASSWORD ---- */
+  function showForgot() {
+    alert('To reset your password, contact the admin at hello@edutech.io\n\nAdmin: change passwords in the Admin Panel under "Manage Users".');
+  }
+</script>
+</body>
+</html>

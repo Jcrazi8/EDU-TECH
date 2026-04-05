@@ -2,6 +2,7 @@
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const DEFAULT_MODEL = "llama-3.3-70b-versatile";
+const AI_LOG_STORE = "ai-moderation";
 
 const SYSTEM_CONTEXT = [
   "You are EduTech AI, a helpful assistant for a virtual tech support company called EduTech.",
@@ -24,6 +25,65 @@ function json(statusCode, body) {
     headers: JSON_HEADERS,
     body: JSON.stringify(body)
   };
+}
+
+function getAuditStore() {
+  try {
+    const { getStore } = require("@netlify/blobs");
+    return getStore(AI_LOG_STORE);
+  } catch {
+    return null;
+  }
+}
+
+function sanitizeSessionMeta(session, event) {
+  const safeSession = session && typeof session === "object" ? session : {};
+  const forwardedFor = event && event.headers
+    ? event.headers["x-forwarded-for"] || event.headers["X-Forwarded-For"] || ""
+    : "";
+  const firstIp = String(forwardedFor).split(",")[0].trim();
+
+  return {
+    role: safeSession.role === "admin" || safeSession.role === "user" ? safeSession.role : "guest",
+    displayName: safeSession.displayName ? String(safeSession.displayName).slice(0, 80) : "Guest Visitor",
+    username: safeSession.username ? String(safeSession.username).slice(0, 80) : "",
+    guestId: safeSession.guestId ? String(safeSession.guestId).slice(0, 80) : "",
+    page: safeSession.page ? String(safeSession.page).slice(0, 120) : "",
+    userAgent: safeSession.userAgent ? String(safeSession.userAgent).slice(0, 240) : "",
+    ipHint: firstIp || ""
+  };
+}
+
+async function persistChatLog(body, reply, event) {
+  const store = getAuditStore();
+  if (!store) return;
+
+  const session = sanitizeSessionMeta(body.session, event);
+  const prompt = String(body.message || "").trim();
+  const aiReply = String(reply || "").trim();
+  if (!prompt || !aiReply) return;
+
+  const now = new Date();
+  const entry = {
+    id: `${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`,
+    createdAt: now.toISOString(),
+    type: "chat",
+    prompt,
+    reply: aiReply,
+    actorRole: session.role,
+    actorLabel: session.role === "guest"
+      ? `Guest${session.guestId ? ` (${session.guestId})` : ""}`
+      : session.displayName || session.username || "Signed-in user",
+    username: session.username || "",
+    displayName: session.displayName || "",
+    guestId: session.guestId || "",
+    page: session.page || "",
+    userAgent: session.userAgent || "",
+    ipHint: session.ipHint || ""
+  };
+
+  const key = `chat/${now.getTime()}-${Math.random().toString(36).slice(2, 10)}.json`;
+  await store.setJSON(key, entry);
 }
 
 function buildChatRequest(body) {
@@ -140,7 +200,17 @@ exports.handler = async function handler(event) {
       return json(502, { error: "The AI provider returned an empty response." });
     }
 
-    return json(200, { reply: String(reply).trim() });
+    const trimmedReply = String(reply).trim();
+
+    if (body.type === "chat") {
+      try {
+        await persistChatLog(body, trimmedReply, event);
+      } catch {
+        /* Moderation logging should never block the user-facing AI response. */
+      }
+    }
+
+    return json(200, { reply: trimmedReply });
   } catch {
     return json(500, {
       error: "Unable to reach the AI service right now. If you are running locally, start the site with netlify dev."

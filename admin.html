@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel – EduTech</title>
+  <title>Admin Panel - EduTech</title>
   <link rel="stylesheet" href="admin.css"/>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="logo">Edu<span>Tech</span></a>
@@ -26,15 +24,14 @@
 </nav>
 
 <div class="admin-layout">
-
-  <!-- SIDEBAR -->
   <aside class="admin-sidebar" id="adminSidebar">
     <div class="admin-brand"><i class="fas fa-shield-alt"></i> &nbsp;Admin Panel</div>
     <nav class="sidebar-nav">
-      <button class="sidebar-link active" onclick="showPanel('overview')"><i class="fas fa-chart-pie"></i> Overview</button>
-      <button class="sidebar-link" onclick="showPanel('activity')"><i class="fas fa-bell"></i> Activity <span id="activityBadge" style="margin-left:auto;background:var(--accent);color:#000;font-size:0.7rem;padding:1px 7px;border-radius:10px;font-weight:700;"></span></button>
-      <button class="sidebar-link" onclick="showPanel('users')"><i class="fas fa-users"></i> Manage Users</button>
-      <button class="sidebar-link" onclick="showPanel('credentials')"><i class="fas fa-key"></i> Demo Credentials</button>
+      <button class="sidebar-link active" onclick="showPanel('overview', event)"><i class="fas fa-chart-pie"></i> Overview</button>
+      <button class="sidebar-link" onclick="showPanel('activity', event)"><i class="fas fa-bell"></i> Activity <span id="activityBadge" style="margin-left:auto;background:var(--accent);color:#000;font-size:0.7rem;padding:1px 7px;border-radius:10px;font-weight:700;"></span></button>
+      <button class="sidebar-link" onclick="showPanel('ai', event)"><i class="fas fa-robot"></i> AI Conversations <span id="aiBadge" style="margin-left:auto;background:rgba(255,255,255,0.08);color:var(--accent);font-size:0.7rem;padding:1px 7px;border-radius:10px;font-weight:700;"></span></button>
+      <button class="sidebar-link" onclick="showPanel('users', event)"><i class="fas fa-users"></i> Manage Users</button>
+      <button class="sidebar-link" onclick="showPanel('credentials', event)"><i class="fas fa-key"></i> Demo Credentials</button>
       <div class="sidebar-divider"></div>
       <a href="index.html" class="sidebar-link"><i class="fas fa-globe"></i> View Site</a>
     </nav>
@@ -43,10 +40,7 @@
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <main class="admin-main">
-
-    <!-- ========== OVERVIEW PANEL ========== -->
     <div class="admin-panel active" id="panel-overview">
       <div class="admin-page-title">Dashboard Overview</div>
       <div class="admin-page-sub" id="adminWelcome">Welcome back, Admin.</div>
@@ -72,13 +66,17 @@
           <div class="stat-num" id="statUsers">1</div>
           <div class="stat-label">Registered Users</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-robot"></i></div>
+          <div class="stat-num" id="statAi">0</div>
+          <div class="stat-label">AI Conversations Logged</div>
+        </div>
       </div>
 
-      <!-- Recent Activity preview -->
       <div class="admin-table-wrap">
         <div class="admin-table-header">
           <h3>Recent Activity</h3>
-          <button class="filter-btn active" onclick="showPanel('activity')">View All →</button>
+          <button class="filter-btn active" onclick="showPanel('activity', event)">View All -></button>
         </div>
         <table class="admin-table">
           <thead><tr><th>Time</th><th>Type</th><th>User</th><th>Details</th></tr></thead>
@@ -89,7 +87,6 @@
       </div>
     </div>
 
-    <!-- ========== ACTIVITY PANEL ========== -->
     <div class="admin-panel" id="panel-activity">
       <div class="admin-page-title">User Activity</div>
       <div class="admin-page-sub">All support requests, subscription attempts, and contact form submissions.</div>
@@ -115,7 +112,32 @@
       </div>
     </div>
 
-    <!-- ========== USERS PANEL ========== -->
+    <div class="admin-panel" id="panel-ai">
+      <div class="admin-page-title">AI Conversations</div>
+      <div class="admin-page-sub">Review what visitors and signed-in users send to the AI assistant for moderation.</div>
+
+      <div class="admin-form-card">
+        <h3><i class="fas fa-shield-alt"></i> Moderation Feed</h3>
+        <p id="aiLogStatusText">Loading shared AI conversation logs...</p>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+          <button class="btn-admin-save" onclick="refreshData()"><i class="fas fa-rotate-right"></i> Refresh Logs</button>
+          <button class="btn-admin-danger" onclick="clearAiLogs()"><i class="fas fa-trash"></i> Clear AI Logs</button>
+        </div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <h3>Recent AI Messages</h3>
+        </div>
+        <table class="admin-table">
+          <thead><tr><th>Timestamp</th><th>Visitor</th><th>Page</th><th>Prompt</th><th>Reply</th></tr></thead>
+          <tbody id="aiLogTable">
+            <tr><td colspan="5"><div class="empty-state"><i class="fas fa-robot"></i>No AI conversations logged yet.</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="admin-panel" id="panel-users">
       <div class="admin-page-title">Manage Users</div>
       <div class="admin-page-sub">View registered users and their subscription status.</div>
@@ -130,7 +152,6 @@
         </table>
       </div>
 
-      <!-- Add a user -->
       <div class="admin-form-card">
         <h3><i class="fas fa-user-plus"></i> Add New User</h3>
         <p>Creates a new regular user account.</p>
@@ -151,16 +172,14 @@
           </select>
         </div>
         <button class="btn-admin-save" onclick="addUser()"><i class="fas fa-plus"></i> Add User</button>
-        <div class="success-toast" id="addUserToast">✅ User added successfully!</div>
+        <div class="success-toast" id="addUserToast">User added successfully.</div>
       </div>
     </div>
 
-    <!-- ========== CREDENTIALS PANEL ========== -->
     <div class="admin-panel" id="panel-credentials">
       <div class="admin-page-title">Login Credentials</div>
       <div class="admin-page-sub">Update browser-only demo usernames and passwords. Changes take effect immediately on this device.</div>
 
-      <!-- Change Admin credentials -->
       <div class="admin-form-card">
         <h3><i class="fas fa-shield-alt"></i> Admin Credentials</h3>
         <p>Change the admin username or password. You will need to log in again after saving.</p>
@@ -173,10 +192,9 @@
           <div class="form-group"><label>New Password</label><input type="password" id="adminNewPass" placeholder="New password (min 8 chars)"/></div>
         </div>
         <button class="btn-admin-save" onclick="changeAdminCreds()"><i class="fas fa-save"></i> Save Admin Credentials</button>
-        <div class="success-toast" id="adminCredToast">✅ Admin credentials updated! Please log in again.</div>
+        <div class="success-toast" id="adminCredToast">Admin credentials updated. Please log in again.</div>
       </div>
 
-      <!-- Change User credentials -->
       <div class="admin-form-card">
         <h3><i class="fas fa-user-edit"></i> Change User Password</h3>
         <p>Select a user and set a new username or password for them.</p>
@@ -190,14 +208,12 @@
         </div>
         <button class="btn-admin-save" onclick="changeUserCreds()"><i class="fas fa-save"></i> Save User Credentials</button>
         <button class="btn-admin-danger" onclick="deleteSelectedUser()" style="margin-left:0.5rem;"><i class="fas fa-trash"></i> Delete User</button>
-        <div class="success-toast" id="userCredToast">✅ User credentials updated!</div>
+        <div class="success-toast" id="userCredToast">User credentials updated.</div>
       </div>
     </div>
-
   </main>
 </div>
 
-<!-- Mobile sidebar toggle -->
 <button class="sidebar-toggle" onclick="document.getElementById('adminSidebar').classList.toggle('open')">
   <i class="fas fa-bars"></i>
 </button>
@@ -205,52 +221,86 @@
 <script src="auth.js"></script>
 <script src="main.js"></script>
 <script>
-/* ---- AUTH GUARD ---- */
 const session = requireAuth('admin');
 if (session) {
   document.getElementById('adminWelcome').textContent = `Welcome back, ${session.displayName}.`;
 }
 
-/* ---- PANEL NAVIGATION ---- */
-function showPanel(name) {
-  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
-  event.currentTarget && event.currentTarget.classList.add('active');
+let currentFilter = 'all';
+let aiConversationLog = [];
+
+function showPanel(name, event) {
+  document.querySelectorAll('.admin-panel').forEach(panel => panel.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+  document.getElementById(`panel-${name}`).classList.add('active');
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+  }
   refreshData();
 }
 
-/* ---- REFRESH ALL DATA ---- */
-function refreshData() {
-  const log   = getActivityLog();
-  const users = getUsers();
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
-  /* Update stat counters */
-  document.getElementById('statSupport').textContent = log.filter(e => e.type === 'support_request').length;
-  document.getElementById('statSub').textContent     = log.filter(e => e.type === 'subscription_attempt').length;
-  document.getElementById('statContact').textContent = log.filter(e => e.type === 'contact_form').length;
-  document.getElementById('statUsers').textContent   = users.length;
+function formatLogTime(value) {
+  if (!value) return 'Unknown';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString();
+}
 
-  /* Activity badge */
-  document.getElementById('activityBadge').textContent = log.length || '';
-
-  /* Recent activity (overview — last 5) */
-  renderActivityTable('recentActivityTable', log.slice(0, 5));
-
-  /* Full activity table */
-  renderActivityTable('activityTable', log);
-
-  /* Users table */
-  renderUsersTable(users);
-
-  /* User select dropdown in credentials panel */
-  const sel = document.getElementById('editUserSelect');
-  if (sel) {
-    sel.innerHTML = users.map(u => `<option value="${u.username}">${u.displayName} (${u.username})</option>`).join('');
+async function fetchAiLogs() {
+  const statusEl = document.getElementById('aiLogStatusText');
+  try {
+    const response = await fetch('/.netlify/functions/ai-logs?limit=100', {
+      headers: { 'Cache-Control': 'no-store' }
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || 'Unable to load AI conversation logs.');
+    }
+    if (statusEl) {
+      statusEl.textContent = `Showing ${Array.isArray(data.logs) ? data.logs.length : 0} most recent shared AI conversations.`;
+    }
+    return Array.isArray(data.logs) ? data.logs : [];
+  } catch (error) {
+    if (statusEl) {
+      statusEl.textContent = `${error.message} Shared guest moderation logs require the Netlify Functions backend and Blobs storage.`;
+    }
+    return [];
   }
 }
 
-/* ---- RENDER ACTIVITY TABLE ---- */
+async function refreshData() {
+  const log = getActivityLog();
+  const users = getUsers();
+  aiConversationLog = await fetchAiLogs();
+
+  document.getElementById('statSupport').textContent = log.filter(entry => entry.type === 'support_request').length;
+  document.getElementById('statSub').textContent = log.filter(entry => entry.type === 'subscription_attempt').length;
+  document.getElementById('statContact').textContent = log.filter(entry => entry.type === 'contact_form').length;
+  document.getElementById('statUsers').textContent = users.length;
+  document.getElementById('statAi').textContent = aiConversationLog.length;
+
+  document.getElementById('activityBadge').textContent = log.length || '';
+  document.getElementById('aiBadge').textContent = aiConversationLog.length || '';
+
+  renderActivityTable('recentActivityTable', log.slice(0, 5));
+  renderActivityTable('activityTable', currentFilter === 'all' ? log : log.filter(entry => entry.type === currentFilter));
+  renderAiLogTable(aiConversationLog);
+  renderUsersTable(users);
+
+  const select = document.getElementById('editUserSelect');
+  if (select) {
+    select.innerHTML = users.map(user => `<option value="${escapeHtml(user.username)}">${escapeHtml(user.displayName)} (${escapeHtml(user.username)})</option>`).join('');
+  }
+}
+
 function renderActivityTable(tbodyId, data) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
@@ -258,35 +308,51 @@ function renderActivityTable(tbodyId, data) {
     tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state"><i class="fas fa-inbox"></i>No activity yet. Activity appears when users submit the contact form, request support, or attempt to subscribe.</div></td></tr>`;
     return;
   }
-  tbody.innerHTML = data.map(e => `
+
+  tbody.innerHTML = data.map(entry => `
     <tr>
-      <td style="color:var(--muted);font-size:0.8rem;white-space:nowrap;">${e.timestamp}</td>
-      <td>${typeBadge(e.type)}</td>
-      <td style="font-weight:600;">${e.name || e.user || '—'}</td>
-      <td style="color:var(--muted);font-size:0.85rem;">${e.details || '—'}</td>
+      <td style="color:var(--muted);font-size:0.8rem;white-space:nowrap;">${escapeHtml(entry.timestamp || 'Unknown')}</td>
+      <td>${typeBadge(entry.type)}</td>
+      <td style="font-weight:600;">${escapeHtml(entry.name || entry.user || '-')}</td>
+      <td style="color:var(--muted);font-size:0.85rem;">${escapeHtml(entry.details || '-')}</td>
+    </tr>
+  `).join('');
+}
+
+function renderAiLogTable(data) {
+  const tbody = document.getElementById('aiLogTable');
+  if (!tbody) return;
+  if (!data.length) {
+    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><i class="fas fa-robot"></i>No AI conversations logged yet.</div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(entry => `
+    <tr>
+      <td style="color:var(--muted);font-size:0.8rem;white-space:nowrap;">${escapeHtml(formatLogTime(entry.createdAt))}</td>
+      <td style="font-weight:600;">${escapeHtml(entry.actorLabel || 'Guest Visitor')}</td>
+      <td style="color:var(--muted);font-size:0.82rem;">${escapeHtml(entry.page || 'Unknown')}</td>
+      <td style="font-size:0.85rem;line-height:1.5;">${escapeHtml(entry.prompt || '-')}</td>
+      <td style="color:var(--muted);font-size:0.85rem;line-height:1.5;">${escapeHtml(entry.reply || '-')}</td>
     </tr>
   `).join('');
 }
 
 function typeBadge(type) {
-  if (type === 'support_request')    return '<span class="badge-support">Support Request</span>';
+  if (type === 'support_request') return '<span class="badge-support">Support Request</span>';
   if (type === 'subscription_attempt') return '<span class="badge-sub">Subscription</span>';
-  if (type === 'contact_form')       return '<span class="badge-contact">Contact Form</span>';
-  return `<span>${type}</span>`;
+  if (type === 'contact_form') return '<span class="badge-contact">Contact Form</span>';
+  return `<span>${escapeHtml(type || 'event')}</span>`;
 }
 
-/* ---- FILTER ACTIVITY ---- */
-let currentFilter = 'all';
 function filterActivity(type, btn) {
   currentFilter = type;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(button => button.classList.remove('active'));
   btn.classList.add('active');
-  const log  = getActivityLog();
-  const data = type === 'all' ? log : log.filter(e => e.type === type);
-  renderActivityTable('activityTable', data);
+  const log = getActivityLog();
+  renderActivityTable('activityTable', type === 'all' ? log : log.filter(entry => entry.type === type));
 }
 
-/* ---- CLEAR ACTIVITY ---- */
 function clearActivity() {
   if (confirm('Clear all activity logs? This cannot be undone.')) {
     localStorage.removeItem('edutech_activity');
@@ -294,81 +360,107 @@ function clearActivity() {
   }
 }
 
-/* ---- RENDER USERS TABLE ---- */
+async function clearAiLogs() {
+  if (!confirm('Clear all shared AI conversation logs? This cannot be undone.')) return;
+  const statusEl = document.getElementById('aiLogStatusText');
+  try {
+    const response = await fetch('/.netlify/functions/ai-logs', { method: 'DELETE' });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || 'Unable to clear AI logs.');
+    }
+    if (statusEl) {
+      statusEl.textContent = `Cleared ${data.cleared || 0} AI conversation log entries.`;
+    }
+    refreshData();
+  } catch (error) {
+    if (statusEl) {
+      statusEl.textContent = error.message;
+    }
+  }
+}
+
 function renderUsersTable(users) {
   const tbody = document.getElementById('usersTable');
   if (!tbody) return;
-  tbody.innerHTML = users.map(u => `
+  tbody.innerHTML = users.map(user => `
     <tr>
-      <td style="font-weight:600;">${u.displayName}</td>
-      <td style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent);">${u.username}</td>
-      <td style="color:var(--muted);font-size:0.85rem;">${u.email || '—'}</td>
-      <td>${u.plan === 'Subscriber ($9.99/mo)' ? '<span class="badge-premium">Subscriber</span>' : '<span class="badge-basic">Basic</span>'}</td>
-      <td style="color:var(--muted);font-size:0.82rem;">${u.joined || '—'}</td>
+      <td style="font-weight:600;">${escapeHtml(user.displayName)}</td>
+      <td style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent);">${escapeHtml(user.username)}</td>
+      <td style="color:var(--muted);font-size:0.85rem;">${escapeHtml(user.email || '-')}</td>
+      <td>${user.plan === 'Subscriber ($9.99/mo)' ? '<span class="badge-premium">Subscriber</span>' : '<span class="badge-basic">Basic</span>'}</td>
+      <td style="color:var(--muted);font-size:0.82rem;">${escapeHtml(user.joined || '-')}</td>
     </tr>
   `).join('');
 }
 
-/* ---- ADD USER ---- */
 function addUser() {
   const displayName = document.getElementById('newDisplayName').value.trim();
-  const email       = document.getElementById('newEmail').value.trim();
-  const username    = document.getElementById('newUsername').value.trim();
-  const password    = document.getElementById('newPassword').value.trim();
-  const plan        = document.getElementById('newPlan').value;
+  const email = document.getElementById('newEmail').value.trim();
+  const username = document.getElementById('newUsername').value.trim();
+  const password = document.getElementById('newPassword').value.trim();
+  const plan = document.getElementById('newPlan').value;
 
   if (!displayName || !username || !password) { alert('Display name, username and password are required.'); return; }
   if (password.length < 8) { alert('Password must be at least 8 characters.'); return; }
 
   const users = getUsers();
-  if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
-    alert('A user with that username already exists.'); return;
+  if (users.find(user => user.username.toLowerCase() === username.toLowerCase())) {
+    alert('A user with that username already exists.');
+    return;
   }
 
-  users.push({ username, password, role: 'user', displayName, email, plan, joined: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) });
+  users.push({
+    username,
+    password,
+    role: 'user',
+    displayName,
+    email,
+    plan,
+    joined: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  });
   saveUsers(users);
 
-  /* Clear form */
-  ['newDisplayName','newEmail','newUsername','newPassword'].forEach(id => document.getElementById(id).value = '');
+  ['newDisplayName', 'newEmail', 'newUsername', 'newPassword'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
   document.getElementById('addUserToast').style.display = 'block';
   setTimeout(() => document.getElementById('addUserToast').style.display = 'none', 3000);
   refreshData();
 }
 
-/* ---- CHANGE ADMIN CREDENTIALS ---- */
 function changeAdminCreds() {
-  const curUser  = document.getElementById('adminCurrentUser').value.trim();
-  const curPass  = document.getElementById('adminCurrentPass').value;
-  const newUser  = document.getElementById('adminNewUser').value.trim();
-  const newPass  = document.getElementById('adminNewPass').value;
+  const curUser = document.getElementById('adminCurrentUser').value.trim();
+  const curPass = document.getElementById('adminCurrentPass').value;
+  const newUser = document.getElementById('adminNewUser').value.trim();
+  const newPass = document.getElementById('adminNewPass').value;
 
   if (!curUser || !curPass) { alert('Enter your current credentials first.'); return; }
   const admins = getAdmins();
-  const idx    = admins.findIndex(a => a.username.toLowerCase() === curUser.toLowerCase() && a.password === curPass);
+  const idx = admins.findIndex(admin => admin.username.toLowerCase() === curUser.toLowerCase() && admin.password === curPass);
   if (idx === -1) { alert('Current credentials are incorrect.'); return; }
   if (!newUser && !newPass) { alert('Enter at least a new username or new password.'); return; }
   if (newPass && newPass.length < 8) { alert('New password must be at least 8 characters.'); return; }
 
-  if (newUser) admins[idx].username    = newUser;
-  if (newPass) admins[idx].password    = newPass;
-  if (newUser) admins[idx].displayName = 'Admin — EduTech';
+  if (newUser) admins[idx].username = newUser;
+  if (newPass) admins[idx].password = newPass;
+  if (newUser) admins[idx].displayName = 'Admin - EduTech';
   saveAdmins(admins);
 
   document.getElementById('adminCredToast').style.display = 'block';
   setTimeout(() => { logout(); }, 2500);
 }
 
-/* ---- CHANGE USER CREDENTIALS ---- */
 function changeUserCreds() {
-  const sel      = document.getElementById('editUserSelect').value;
-  const newUser  = document.getElementById('editUserNewUsername').value.trim();
-  const newPass  = document.getElementById('editUserNewPassword').value;
+  const selected = document.getElementById('editUserSelect').value;
+  const newUser = document.getElementById('editUserNewUsername').value.trim();
+  const newPass = document.getElementById('editUserNewPassword').value;
 
   if (!newUser && !newPass) { alert('Enter at least a new username or password.'); return; }
   if (newPass && newPass.length < 8) { alert('Password must be at least 8 characters.'); return; }
 
   const users = getUsers();
-  const idx   = users.findIndex(u => u.username === sel);
+  const idx = users.findIndex(user => user.username === selected);
   if (idx === -1) { alert('User not found.'); return; }
 
   if (newUser) users[idx].username = newUser;
@@ -382,19 +474,14 @@ function changeUserCreds() {
   refreshData();
 }
 
-/* ---- DELETE USER ---- */
 function deleteSelectedUser() {
-  const sel   = document.getElementById('editUserSelect').value;
-  if (!confirm(`Delete user "${sel}"? This cannot be undone.`)) return;
-  const users = getUsers().filter(u => u.username !== sel);
-  saveUsers(users);
+  const selected = document.getElementById('editUserSelect').value;
+  if (!confirm(`Delete user "${selected}"? This cannot be undone.`)) return;
+  saveUsers(getUsers().filter(user => user.username !== selected));
   refreshData();
 }
 
-/* Initial load */
 refreshData();
-
-/* Auto-refresh every 10 seconds to catch new activity */
 setInterval(refreshData, 10000);
 </script>
 </body>

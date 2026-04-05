@@ -8,11 +8,51 @@
 /* ---- AI ENDPOINT CONFIG (serverless proxy keeps secrets off the client) ---- */
 const AI_ENDPOINT = "/.netlify/functions/ai";
 
+function getGuestSessionId() {
+  try {
+    let guestId = localStorage.getItem("edutech_guest_id");
+    if (!guestId) {
+      guestId = `guest-${Math.random().toString(36).slice(2, 8)}`;
+      localStorage.setItem("edutech_guest_id", guestId);
+    }
+    return guestId;
+  } catch {
+    return "guest-unknown";
+  }
+}
+
+function getAISessionMeta() {
+  const session = typeof getSession === "function" ? getSession() : null;
+  const page = window.location.pathname.split("/").pop() || "index.html";
+  const userAgent = navigator.userAgent || "";
+
+  if (session) {
+    return {
+      role: session.role || "user",
+      username: session.username || "",
+      displayName: session.displayName || session.username || "Signed-in user",
+      page,
+      userAgent
+    };
+  }
+
+  return {
+    role: "guest",
+    displayName: "Guest Visitor",
+    guestId: getGuestSessionId(),
+    page,
+    userAgent
+  };
+}
+
 async function requestAI(payload) {
   const response = await fetch(AI_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({
+      ...payload,
+      session: getAISessionMeta()
+    })
   });
 
   let data = {};

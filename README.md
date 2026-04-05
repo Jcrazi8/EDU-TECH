@@ -11,6 +11,7 @@ EduTech is a static front-end school project with a Netlify Function that keeps 
 | `main.js` | Front-end interactions, chat widget, forms, calculators |
 | `auth.js` | Browser-only demo login and activity storage |
 | `netlify/functions/ai.js` | Serverless proxy for Groq requests |
+| `netlify/functions/ai-logs.js` | Shared moderation feed for AI chat logs |
 | `netlify.toml` | Netlify build and functions config |
 | `.env.example` | Safe template for local secrets |
 | `CREDENTIALS.txt` | Public demo login info only |
@@ -19,4 +20,6 @@ Important: opening `index.html` directly is no longer the supported preview for 
 
 The login system in this project is a classroom demo only.
 This is not secure authentication.
+
+AI moderation logs are stored server-side through Netlify Blobs when the site runs with Netlify Functions enabled.
 

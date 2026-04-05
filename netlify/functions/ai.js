@@ -26,15 +26,25 @@ function json(statusCode, body) {
   };
 }
 
-function buildChatRequest(message) {
+function buildChatRequest(body) {
+  const message = body.message;
+  const history = Array.isArray(body.history) ? body.history : [];
+
   if (!message || !String(message).trim()) {
     return { error: "Please enter a message before sending." };
   }
 
+  /* Sanitise history — only keep valid user/assistant turns, cap at last 20
+     messages to avoid blowing the context window on long conversations.      */
+  const safeHistory = history
+    .filter(m => (m.role === "user" || m.role === "assistant") && typeof m.content === "string" && m.content.trim())
+    .slice(-20)
+    .map(m => ({ role: m.role, content: String(m.content).trim() }));
+
   return {
     messages: [
-      { role: "system", content: SYSTEM_CONTEXT },
-      { role: "user", content: String(message).trim() }
+      { role: "system",    content: SYSTEM_CONTEXT },
+      ...safeHistory                                   /* full conversation so far */
     ],
     max_tokens: 300
   };
@@ -88,7 +98,7 @@ exports.handler = async function handler(event) {
 
   let requestConfig;
   if (body.type === "chat") {
-    requestConfig = buildChatRequest(body.message);
+    requestConfig = buildChatRequest(body);
   } else if (body.type === "pc-build") {
     requestConfig = buildPcRequest(body);
   } else {

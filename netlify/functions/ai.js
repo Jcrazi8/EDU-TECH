@@ -2,7 +2,7 @@
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
 const DEFAULT_MODEL = "llama-3.3-70b-versatile";
-const AI_LOG_STORE = "ai-moderation";
+const { getAuditStore } = require("./ai-log-store");
 
 const SYSTEM_CONTEXT = [
   "You are EduTech AI, a helpful assistant for a virtual tech support company called EduTech.",
@@ -27,15 +27,6 @@ function json(statusCode, body) {
   };
 }
 
-function getAuditStore() {
-  try {
-    const { getStore } = require("@netlify/blobs");
-    return getStore(AI_LOG_STORE);
-  } catch {
-    return null;
-  }
-}
-
 function sanitizeSessionMeta(session, event) {
   const safeSession = session && typeof session === "object" ? session : {};
   const forwardedFor = event && event.headers
@@ -56,7 +47,6 @@ function sanitizeSessionMeta(session, event) {
 
 async function persistChatLog(body, reply, event) {
   const store = getAuditStore();
-  if (!store) return;
 
   const session = sanitizeSessionMeta(body.session, event);
   const prompt = String(body.message || "").trim();

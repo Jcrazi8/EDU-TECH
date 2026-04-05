@@ -1,6 +1,6 @@
 "use strict";
 
-const AI_LOG_STORE = "ai-moderation";
+const { getAuditStore, formatStoreError } = require("./ai-log-store");
 
 const JSON_HEADERS = {
   "Content-Type": "application/json",
@@ -16,15 +16,6 @@ function json(statusCode, body) {
     headers: JSON_HEADERS,
     body: JSON.stringify(body)
   };
-}
-
-function getAuditStore() {
-  try {
-    const { getStore } = require("@netlify/blobs");
-    return getStore(AI_LOG_STORE);
-  } catch {
-    return null;
-  }
 }
 
 async function listConversationLogs(store, limit) {
@@ -55,10 +46,12 @@ exports.handler = async function handler(event) {
     return { statusCode: 204, headers: JSON_HEADERS, body: "" };
   }
 
-  const store = getAuditStore();
-  if (!store) {
+  let store;
+  try {
+    store = getAuditStore();
+  } catch (error) {
     return json(503, {
-      error: "AI moderation storage is unavailable. Install dependencies and run this site with Netlify to enable shared conversation logs."
+      error: `AI moderation storage is unavailable: ${formatStoreError(error)}`
     });
   }
 

@@ -120,6 +120,9 @@ const chatInput    = document.getElementById("chat-input");
 const chatSend     = document.getElementById("chat-send");
 const chatMessages = document.getElementById("chat-messages");
 
+/* Stores the full back-and-forth so the AI remembers context */
+const conversationHistory = [];
+
 if (chatToggle) {
   chatToggle.addEventListener("click", () => chatWindow.classList.toggle("hidden"));
   chatClose.addEventListener("click",  () => chatWindow.classList.add("hidden"));
@@ -141,14 +144,28 @@ async function sendMessage() {
   if (!text) return;
   chatInput.value = "";
   addMsg(text, "user");
+
+  /* Add user message to history BEFORE sending */
+  conversationHistory.push({ role: "user", content: text });
+
   const loadingDiv = addMsg("Thinking...", "bot loading");
   try {
-    const reply = await requestAI({ type: "chat", message: text });
+    const reply = await requestAI({
+      type: "chat",
+      message: text,
+      history: conversationHistory   /* full history sent each time */
+    });
     loadingDiv.textContent = reply;
     loadingDiv.classList.remove("loading");
+
+    /* Add the AI's reply to history so future messages have full context */
+    conversationHistory.push({ role: "assistant", content: reply });
   } catch (err) {
     loadingDiv.textContent = err.message || "AI assistant is unavailable right now. Please try again later.";
     loadingDiv.classList.remove("loading");
+
+    /* Remove the failed user message from history so it doesn't corrupt context */
+    conversationHistory.pop();
   }
 }
 

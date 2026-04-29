@@ -108,7 +108,7 @@
 
     /* Lead founder card (slightly larger / featured) */
     .founder-card.lead {
-      border-color: rgba(108,99,255,0.4);
+      border-color: rgba(84, 31, 244, 0.768);
       background: rgba(108,99,255,0.05);
     }
 
@@ -121,7 +121,7 @@
       align-items: center;
       gap: 5px;
       background: rgba(108,99,255,0.15);
-      border: 1px solid rgba(108,99,255,0.4);
+      border: 1px solid rgba(84, 31, 244, 0.768);
       color: #a89dff;
       font-size: 0.72rem;
       font-weight: 700;

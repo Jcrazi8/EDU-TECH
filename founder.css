@@ -23,10 +23,8 @@
     /* Photo area */
     .founder-photo {
       width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
+      height: auto;
       display: block;
-      background: linear-gradient(135deg, #1a1f2e, #0d1421);
     }
 
     /* Placeholder shown when no real photo is used */

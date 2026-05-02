@@ -147,29 +147,7 @@
   <div class="footer-bottom"><p>© 2026 EduTech. Built to bridge the gap between the known and the unknown.</p></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const faqs = [
-  { q: "Is remote tech support really free?", a: "Yes! Basic remote support sessions are completely free for all users. You only pay for hardware repair services (shipping + labor) or for our premium subscription plan." },
-  { q: "How do I ship my device for repair?", a: "After submitting a repair request through the platform, you'll receive a shipping label and instructions. Once repaired, we ship it back fully tested." },
-  { q: "How do students apply for certification?", a: "Students can apply directly through our contact form or through their school's IT department if EduTech is a partner. No prior experience is required." },
-  { q: "Is EduTech available outside the US?", a: "Yes! EduTech operates in 40+ countries. Remote support is available globally, and our student certification program is expanding worldwide." },
-  { q: "How is the free tier funded?", a: "EduTech is funded through federal grants, sponsorships from IT certification companies, institutional subscriptions, and community donations." },
-];
-
-const faqList = document.getElementById("faq-list");
-faqs.forEach(f => {
-  const div = document.createElement("div");
-  div.style.cssText = "background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;";
-  div.innerHTML = `
-    <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('i').style.transform=this.nextElementSibling.style.display==='block'?'rotate(180deg)':'rotate(0deg)'"
-      style="width:100%;padding:1.2rem 1.5rem;background:none;border:none;color:var(--text);font-size:0.95rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left;font-family:var(--font-display);">
-      <span>${f.q}</span><i class="fas fa-chevron-down" style="transition:transform 0.2s;"></i>
-    </button>
-    <div style="display:none;padding:0 1.5rem 1.2rem;color:var(--text-dim);font-size:0.9rem;line-height:1.6;">${f.a}</div>
-  `;
-  faqList.appendChild(div);
-});
-</script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 
 <script src="auth.js"></script>
 <script src="main.js"></script>

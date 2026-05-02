@@ -162,4 +162,16 @@ faqs.forEach(f => {
   div.style.cssText = "background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;";
   div.innerHTML = `
     <button onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.querySelector('i').style.transform=this.nextElementSibling.style.display==='block'?'rotate(180deg)':'rotate(0deg)'"
-      style="width:100%;padding:1.2rem 1.5rem;background:none;border:none;color:var(--text);font-size:0.95rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left;font-family:var(--font-display);"
+      style="width:100%;padding:1.2rem 1.5rem;background:none;border:none;color:var(--text);font-size:0.95rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left;font-family:var(--font-display);">
+      <span>${f.q}</span><i class="fas fa-chevron-down" style="transition:transform 0.2s;"></i>
+    </button>
+    <div style="display:none;padding:0 1.5rem 1.2rem;color:var(--text-dim);font-size:0.9rem;line-height:1.6;">${f.a}</div>
+  `;
+  faqList.appendChild(div);
+});
+</script>
+
+<script src="auth.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

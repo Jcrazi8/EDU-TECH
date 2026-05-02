@@ -1,0 +1,61 @@
+body { padding-top: 70px; }
+    .dash-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .dash-welcome { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; }
+    .dash-welcome span { color: var(--accent); }
+    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .dash-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.8rem;
+    }
+    .dash-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+    .plan-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.3);
+      color: var(--accent); font-size: 0.85rem; font-weight: 700;
+      padding: 0.5rem 1rem; border-radius: 50px; margin-bottom: 1rem;
+    }
+    .plan-features li { font-size: 0.85rem; color: var(--muted); padding: 0.35rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .plan-features li i.fa-check { color: var(--accent); }
+    .plan-features li i.fa-times { color: rgba(255,255,255,0.2); }
+
+    /* Support request form inside dashboard */
+    .support-form-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .support-form-card h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+    .support-form-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .form-success-dash {
+      display: none; background: rgba(0,229,255,0.08); border: 1px solid var(--accent);
+      color: var(--accent); border-radius: 10px; padding: 1rem; font-weight: 600;
+      font-size: 0.9rem; text-align: center; margin-top: 1rem;
+    }
+    .field-error { display: block; color: #ff6b6b; font-size: 0.78rem; margin-top: 4px; }
+    .input-error { border-color: rgba(255,107,107,0.6) !important; }
+
+    /* Subscription upgrade card */
+    .upgrade-card {
+      background: linear-gradient(135deg, rgba(108,99,255,0.12), rgba(0,229,255,0.06));
+      border: 1px solid rgba(108,99,255,0.35);
+      border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .upgrade-card h2 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .upgrade-card p  { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .sub-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+    .sub-plan {
+      border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem;
+      cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.03);
+    }
+    .sub-plan:hover { border-color: rgba(108,99,255,0.4); }
+    .sub-plan.selected { border-color: var(--accent2); background: rgba(108,99,255,0.08); }
+    .sub-plan h4 { font-family: var(--font-display); font-weight: 700; margin-bottom: 0.3rem; }
+    .sub-plan .price { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+    .sub-plan p { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+    .sub-success {
+      display: none; background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.4);
+      color: #a89dff; border-radius: 10px; padding: 1rem; font-weight: 600;
+      text-align: center; margin-top: 1rem;
+    }
+
+    @media(max-width:600px) { .dash-welcome { font-size: 1.4rem; } }

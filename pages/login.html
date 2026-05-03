@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – EduTech</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+   <link rel="stylesheet" href="../css/login.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="logo">Edu<span>Tech</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="certify.html">Certify</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="founders.html">Founders</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="login.html" class="btn-nav">Login</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <ul class="mobile-menu" id="mobileMenu">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="certify.html">Certify</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="founders.html">Founders</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="login-wrapper">
+  <div class="login-box">
+
+    <div class="login-logo">Edu<span>Tech</span></div>
+    <p class="login-subtitle">Browser-only demo login for this school project</p>
+
+    <!-- Role selector tabs -->
+    <div class="login-tabs">
+      <button class="login-tab active" id="tabUser" onclick="setTab('user')">
+        <i class="fas fa-user"></i> User
+      </button>
+      <button class="login-tab" id="tabAdmin" onclick="setTab('admin')">
+        <i class="fas fa-shield-alt"></i> Admin
+      </button>
+      <button class="login-tab" id="tabSignup" onclick="setTab('signup')">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </button>
+    </div>
+
+    <!-- Error message shown on bad login -->
+    <div class="login-error" id="loginError">
+      <i class="fas fa-exclamation-circle"></i> Incorrect username or password. Please try again.
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" autocomplete="off">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="off"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="off"/>
+      </div>
+      <span class="forgot-link" onclick="showForgot()">Forgot password?</span>
+      <button type="submit" class="btn-submit" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+
+    <!-- SIGNUP FORM (hidden until Sign Up tab is selected) -->
+    <form id="signupForm" autocomplete="off" style="display:none;">
+      <div class="form-group">
+        <label>Display Name</label>
+        <input type="text" id="signupName" placeholder="What should we call you?" autocomplete="off"/>
+      </div>
+      <div class="form-group">
+        <label>Email <span style="opacity:.6;font-weight:400;">(optional)</span></label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="off"/>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="signupUsername" placeholder="Pick a username (3+ chars)" autocomplete="off"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="signupPassword" placeholder="Pick a password (6+ chars)" autocomplete="off"/>
+      </div>
+      <button type="submit" class="btn-submit" id="signupBtn">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+    </form>
+
+    <div class="login-divider">or</div>
+    <div class="back-home">
+      Don't have an account? <a href="contact.html">Request Access</a>
+    </div>
+    <div class="back-home" style="margin-top:0.5rem;">
+      <a href="../index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/auth.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* ============================================================
+   skeleton.css — Loading skeleton styles for EduTech
+   Usage: add class="skeleton" to a div/span to show animated
+          placeholder while data loads.
+   ============================================================ */
+
+.skeleton {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(108, 99, 255, 0.08);
+  border-radius: 6px;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Skeleton sizes */
+.skeleton-text {
+  height: 1em;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: .4em;
+}
+
+.skeleton-text.skeleton-short  { width: 45%; }
+.skeleton-text.skeleton-medium { width: 70%; }
+.skeleton-text.skeleton-long   { width: 90%; }
+
+.skeleton-cell {
+  height: .85em;
+  width: 80%;
+  border-radius: 4px;
+}
+
+/* Table row skeleton */
+tr.skeleton-row td {
+  padding: .75rem 1rem;
+}
+
+tr.skeleton-row td > .skeleton {
+  display: block;
+  height: .85em;
+  width: 75%;
+  border-radius: 4px;
+}
+
+tr.skeleton-row td:first-child > .skeleton { width: 55%; }
+tr.skeleton-row td:nth-child(2) > .skeleton { width: 40%; }
+tr.skeleton-row td:nth-child(3) > .skeleton { width: 65%; }
+tr.skeleton-row td:last-child  > .skeleton { width: 80%; }
+
+/* Badge skeleton */
+.skeleton-badge {
+  display: inline-block;
+  height: 1.4em;
+  width: 5rem;
+  border-radius: 999px;
+}
+
+/* Card skeleton */
+.skeleton-card {
+  width: 100%;
+  height: 120px;
+  border-radius: 12px;
+}

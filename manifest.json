@@ -1,0 +1,39 @@
+{
+  "name": "EduTech – Global Tech Support",
+  "short_name": "EduTech",
+  "description": "Free remote IT help. Affordable repairs. Real jobs for students.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0a0a0f",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "categories": ["education", "utilities"],
+  "icons": [
+    {
+      "src": "/public/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/public/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Get Support",
+      "url": "/pages/services.html",
+      "description": "Request free IT support"
+    },
+    {
+      "name": "Get Certified",
+      "url": "/pages/certify.html",
+      "description": "Take a practice certification quiz"
+    }
+  ]
+}

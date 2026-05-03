@@ -1,0 +1,27 @@
+{
+  "name": "new-project",
+  "version": "1.0.0",
+  "description": "EduTech is a static front-end school project with a Netlify Function that keeps the Groq API key off the public client. You can publish this repo publicly on GitHub as long as your real `.env` file is not committed.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jcrazi8/EDU-TECH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jcrazi8/EDU-TECH/issues"
+  },
+  "homepage": "https://github.com/Jcrazi8/EDU-TECH#readme",
+  "dependencies": {
+    "@netlify/blobs": "^10.7.4"
+  },
+  "devDependencies": {
+    "netlify-cli": "^24.9.0"
+  }
+}
